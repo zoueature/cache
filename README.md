@@ -5,13 +5,13 @@
 ### Quick Start
 
 1. import
-> import "gitlab.jiebu.com/base/cache/driver/redis"
+> import "github.com/zoueature/cache/driver/redis"
 
 2. New client
 ```go
 import (
-    "gitlab.jiebu.com/base/cache/driver/redis"
-	"gitlab.jiebu.com/base/cache"
+    "github.com/zoueature/cache/driver/redis"
+	"github.com/zoueature/cache"
 )
 
 func main()  {

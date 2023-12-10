@@ -3,9 +3,9 @@ package redis
 import (
 	"context"
 	"github.com/redis/go-redis/v9"
-	"gitlab.jiebu.com/base/cache"
-	"gitlab.jiebu.com/base/config"
-	"gitlab.jiebu.com/base/log"
+	"github.com/zoueature/cache"
+	"github.com/zoueature/config"
+	"github.com/zoueature/log"
 	"go.uber.org/zap"
 	"time"
 )

@@ -2,7 +2,7 @@ package cache
 
 import (
 	"context"
-	"gitlab.jiebu.com/base/config"
+	"github.com/zoueature/config"
 	"sync"
 	"time"
 )
