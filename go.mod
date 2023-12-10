@@ -1,11 +1,11 @@
-module gitlab.jiebu.com/base/cache
+module github.com/zoueature/cache
 
 go 1.21.4
 
 require (
 	github.com/redis/go-redis/v9 v9.3.0
-	gitlab.jiebu.com/base/config v0.0.6
-	gitlab.jiebu.com/base/log v0.0.3
+	github.com/zoueature/config v0.0.4
+	github.com/zoueature/log v0.0.3
 	go.uber.org/zap v1.26.0
 )
 

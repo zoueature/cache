@@ -2,8 +2,8 @@ package memory
 
 import (
 	"context"
-	"gitlab.jiebu.com/base/cache"
-	"gitlab.jiebu.com/base/config"
+	"github.com/zoueature/cache"
+	"github.com/zoueature/config"
 	"sync"
 	"time"
 )
