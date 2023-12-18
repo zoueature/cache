@@ -2,6 +2,8 @@ package redis
 
 import (
 	"context"
+	"encoding/json"
+	"errors"
 	"github.com/redis/go-redis/v9"
 	"github.com/zoueature/cache"
 	"github.com/zoueature/config"
@@ -39,12 +41,25 @@ func (r *redisCache) Get(ctx context.Context, key string) string {
 	return result
 }
 
+func (r *redisCache) GetAndUnmarshal(ctx context.Context, key string, container interface{}) error {
+	s := r.Get(ctx, key)
+	if s == "" {
+		return errors.New("cache value is empty")
+	}
+	err := json.Unmarshal([]byte(s), container)
+	return err
+}
+
 func (r *redisCache) Set(ctx context.Context, key string, value interface{}, ttl ...time.Duration) error {
 	expire := time.Duration(redis.KeepTTL)
 	if len(ttl) > 0 {
 		expire = ttl[0]
 	}
-	_, err := r.cli.Set(ctx, key, value, expire).Result()
+	str, err := json.Marshal(value)
+	if err != nil {
+		return err
+	}
+	_, err = r.cli.Set(ctx, key, string(str), expire).Result()
 	if err != nil && r.logErr {
 		log.Error(ctx, "set value to redis cache error", zap.Error(err), zap.String("key", key), zap.Any("value", value))
 	}
@@ -73,4 +88,8 @@ func (r *redisCache) Delete(ctx context.Context, key string) error {
 		log.Error(ctx, "delete cache from redis error", zap.Error(err), zap.String("key", key))
 	}
 	return err
+}
+
+func (r *redisCache) Clear(ctx context.Context) {
+	panic("The redis cache not support clear all cache")
 }

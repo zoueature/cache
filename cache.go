@@ -9,10 +9,12 @@ import (
 
 type Cache interface {
 	Get(ctx context.Context, key string) string
+	GetAndUnmarshal(ctx context.Context, key string, container interface{}) error
 	Set(ctx context.Context, key string, value interface{}, ttl ...time.Duration) error
 	HSet(ctx context.Context, key, field string, value interface{}) error
 	HDelete(ctx context.Context, key string, field ...string) error
 	Delete(ctx context.Context, key string) error
+	Clear(ctx context.Context)
 }
 
 type CacheGenerator func(conf config.CacheConfig) Cache
