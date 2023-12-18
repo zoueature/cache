@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
+	"github.com/spf13/cast"
 	"github.com/zoueature/cache"
 	"github.com/zoueature/config"
 	"sync"
@@ -70,11 +71,11 @@ func (i *ins) GetAndUnmarshal(ctx context.Context, key string, container interfa
 
 func (i *ins) Set(ctx context.Context, key string, value interface{}, ttl ...time.Duration) error {
 	data := i.dataContainer()
-	str, err := json.Marshal(value)
-	if err != nil {
-		return err
+	str := cast.ToString(value)
+	if str == "" {
+		return errors.New("The value is empty ")
 	}
-	data.Store(key, string(str))
+	data.Store(key, str)
 	if len(ttl) > 0 && ttl[0] > 0 {
 		go func() {
 			// 定时器删除缓存数据
